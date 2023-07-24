@@ -76,7 +76,7 @@ jobs:
         with:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
-          tags: sirtobiwan/VacMe-app:latest
+          tags: sirtobiwan/vacme-app:latest
           context: .
 
   deploy:
