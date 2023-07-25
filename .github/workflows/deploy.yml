@@ -87,7 +87,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: capstone-project.de
-          #Set App Name (replace "example" with your ssh user name)
+          #Set App Name (replace "example" with your ssh username)
           username: cgn-java-23-2-tobias
           password: ${{ secrets.SSH_PASSWORD }}
           #Set App Name (replace "example" with your ssh user name)
