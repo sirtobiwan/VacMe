@@ -76,7 +76,7 @@ jobs:
         with:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
-          tags: sirtobiwan/vacme-app:latest
+          tags: sirtobiwan/vacme:latest
           context: .
 
   deploy:
@@ -96,7 +96,7 @@ jobs:
           script: |
             sudo docker stop cgn-java-23-2-tobias
             sudo docker rm cgn-java-23-2-tobias
-            sudo docker run --pull=always --name cgn-java-23-2-tobias --network capstones --ip 10.0.5.20 --restart always --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} sirtobiwan/vacme-app:latest
+            sudo docker run --pull=always --name cgn-java-23-2-tobias --network capstones --ip 10.0.5.20 --restart always --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} sirtobiwan/vacme:latest
             sleep 15s
             sudo docker logs cgn-java-23-2-tobias
 
