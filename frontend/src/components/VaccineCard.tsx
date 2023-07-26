@@ -1,6 +1,6 @@
 import { Vaccines } from '../models/Vaccine';
 import { Card, CardContent, Typography } from '@mui/material';
-import './App.css';
+import '../App.css';
 
 type Props = {
     vaccine: Vaccines;

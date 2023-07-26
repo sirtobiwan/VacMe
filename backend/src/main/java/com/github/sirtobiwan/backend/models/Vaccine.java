@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class Vaccine {
     private String id;
     private String disease;
-    private String vaccine;
+    private String vaccination;
     private String batch;
     private LocalDate vaccineDate;
     private String doctor;

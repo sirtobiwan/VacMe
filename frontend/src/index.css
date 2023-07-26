@@ -1,4 +1,20 @@
 :root {
+    /* Farben */
+    --primary-color: #007bff;
+    --background-color: #f5f5f5;
+    --card-background-color: #ffffff;
+    --text-color: #333333;
+    --subtle-text-color: #5a5a5a;
+    --error-color: #ff0000;
+    --heading-font: 'Arial', sans-serif;
+    --text-font: 'Arial', sans-serif;
+    --border-radius: 10px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.body {
+
+body {
+    font-family: var(--text-font);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
 }

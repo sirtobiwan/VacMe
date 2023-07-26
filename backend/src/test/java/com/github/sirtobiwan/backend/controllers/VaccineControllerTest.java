@@ -32,7 +32,7 @@ class VaccineControllerTest {
                      {
                          "id":"123",
                          "disease":"Corona", 
-                         "vaccine":"Biontech",
+                         "vaccination":"Biontech",
                           "batch":"2" ,
                            "vaccineDate":"2023-07-25",
                            "doctor":"Dr. Meier", 
@@ -42,7 +42,7 @@ class VaccineControllerTest {
                      {
                          "id":"456",
                          "disease":"Corona", 
-                         "vaccine":"Johnson",
+                         "vaccination":"Johnson",
                           "batch":"2" ,
                            "vaccineDate":"2023-07-25",
                            "doctor":"Dr. Meier", 
