@@ -23,8 +23,8 @@ class VaccineControllerTest {
 
     @Test
     void expectAllVaccines_whenGetRequestForAllVaccines() throws Exception {
-        Vaccine newVaccine = new Vaccine("123", "Corona", "Biontech", "2", LocalDate.now(), "Dr. Meier", true, LocalDate.now());
-        Vaccine newVaccine2 = new Vaccine("456", "Corona", "Johnson", "2", LocalDate.now(), "Dr. Meier", true, LocalDate.now());
+        Vaccine newVaccine = new Vaccine("123", "Corona", "Biontech", "2", LocalDate.of(2023, 07, 25), "Dr. Meier", true, LocalDate.of(2024, 07, 25));
+        Vaccine newVaccine2 = new Vaccine("456", "Corona", "Johnson", "2", LocalDate.of(2023, 07, 25), "Dr. Meier", true, LocalDate.of(2024, 07, 25));
         vaccineRepo.save(newVaccine);
         vaccineRepo.insert(newVaccine2);
         String expectedList = """
@@ -37,7 +37,7 @@ class VaccineControllerTest {
                            "vaccineDate":"2023-07-25",
                            "doctor":"Dr. Meier", 
                            "due":true, 
-                           "dueDate":"2023-07-25"
+                           "dueDate":"2024-07-25"
                      },
                      {
                          "id":"456",
@@ -47,7 +47,7 @@ class VaccineControllerTest {
                            "vaccineDate":"2023-07-25",
                            "doctor":"Dr. Meier", 
                            "due":true, 
-                           "dueDate":"2023-07-25"
+                           "dueDate":"2024-07-25"
                      }
                  ]
                  """;
