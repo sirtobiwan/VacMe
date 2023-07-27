@@ -87,13 +87,14 @@ body {
     letter-spacing: 2px;
 }
 
-IconButton {
+.icon-button {
     background-color: var(--button-color);
     color: white;
     padding: 10px;
     border-radius: 50%;
 }
 
-IconButton:hover {
+.icon-button:hover {
     background-color: var(--button-hover-color);
 }
+

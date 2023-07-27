@@ -21,7 +21,7 @@ export default function VaccineCard({ vaccine }: Props) {
                 <Typography variant="h6" className="disease">
                     {vaccine.disease}
                 </Typography>
-                <IconButton onClick={toggleExpanded}>
+                <IconButton className="icon-button" onClick={toggleExpanded}>
                     {expanded ? (
                         <ExpandLessIcon />
                     ) : (
