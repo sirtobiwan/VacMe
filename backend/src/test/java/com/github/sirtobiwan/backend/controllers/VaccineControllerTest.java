@@ -26,7 +26,7 @@ class VaccineControllerTest {
         Vaccine newVaccine = new Vaccine("123", "Corona", "Biontech", "2", LocalDate.of(2023, 07, 25), "Dr. Meier", true, LocalDate.of(2024, 07, 25));
         Vaccine newVaccine2 = new Vaccine("456", "Corona", "Johnson", "2", LocalDate.of(2023, 07, 25), "Dr. Meier", true, LocalDate.of(2024, 07, 25));
         vaccineRepo.save(newVaccine);
-        vaccineRepo.insert(newVaccine2);
+        vaccineRepo.save(newVaccine2);
         String expectedList = """
                  [
                      {

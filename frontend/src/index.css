@@ -1,5 +1,4 @@
 :root {
-    /* Farben */
     --primary-color: #007bff;
     --background-color: #f5f5f5;
     --card-background-color: #ffffff;
@@ -10,6 +9,8 @@
     --text-font: 'Arial', sans-serif;
     --border-radius: 10px;
     --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --button-color: #007bff;
+    --button-hover-color: #0056b3;
 }
 
 body {
@@ -17,4 +18,5 @@ body {
     background-color: var(--background-color);
     margin: 0;
     padding: 0;
+    color: var(--text-color);
 }

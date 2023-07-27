@@ -1,8 +1,8 @@
-import { Vaccines} from '../models/Vaccine';
+import { Vaccine} from '../models/Vaccine';
 import VaccineCard from './VaccineCard';
 
 type Props = {
-    vaccines: Vaccines[];
+    vaccines: Vaccine[];
 };
 
 export default function VaccineList({ vaccines }: Props) {
@@ -12,12 +12,7 @@ export default function VaccineList({ vaccines }: Props) {
             {vaccines.map((vaccine) => (
                 <VaccineCard
                     key={`${vaccine.disease}-${vaccine.vaccineDate}`}
-                    vaccine={{
-                        disease: vaccine.disease,
-                        vaccineDate: vaccine.vaccineDate,
-                        due: vaccine.due,
-                        dueDate: vaccine.dueDate,
-                    }}
+                    vaccine={vaccine}
                 />
             ))}
         </div>
