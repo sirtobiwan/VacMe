@@ -6,11 +6,5 @@ export type Vaccine = {
     vaccineDate: string; // Beispiel: "2023-25-07"
     doctor: string;
     due: boolean;
-    dueDate: string;
+    dueDate: string| null;
 }
-
-export type Vaccines = {
-    disease: string,
-    vaccineDate: string;
-    due: boolean;
-    dueDate: string;}
