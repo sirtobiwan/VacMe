@@ -17,7 +17,7 @@ public class VaccineController {
 
     @GetMapping
     public List<Vaccine> allVaccines(){
-        return vaccineService.allVaccines();
+        return this.vaccineService.allVaccines();
     }
 
     @PostMapping

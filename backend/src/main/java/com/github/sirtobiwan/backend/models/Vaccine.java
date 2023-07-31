@@ -3,7 +3,6 @@ package com.github.sirtobiwan.backend.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Document("vaccines")
+@Document("Vaccines")
 public class Vaccine {
     @Id
     private String id;

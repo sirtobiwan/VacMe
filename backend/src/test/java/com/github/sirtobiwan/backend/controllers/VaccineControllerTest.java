@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -56,5 +58,41 @@ class VaccineControllerTest {
 
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(expectedList));
+    }
+
+    @Test
+    @DirtiesContext
+    void expectNewVaccine_whenAddNewVaccine() throws Exception {
+        String expectedVaccine= """
+                     [
+                     {
+                         
+                         "disease":"Corona", 
+                         "vaccination":"Johnson",
+                          "batch":"2" ,
+                           "vaccineDate":"2023-07-25",
+                           "doctor":"Dr. Meier", 
+                           "due":true, 
+                           "dueDate":"2024-07-25"
+                     }
+                     ]
+                """;
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/vaccine")
+                        .contentType(MediaType.APPLICATION_JSON).content("""
+                                                                  {
+                         
+                         "disease":"Corona", 
+                         "vaccination":"Johnson",
+                          "batch":"2" ,
+                           "vaccineDate":"2023-07-25",
+                           "doctor":"Dr. Meier", 
+                           "due":true, 
+                           "dueDate":"2024-07-25"
+                     }
+                                            """)
+                        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(expectedVaccine));
     }
 }
