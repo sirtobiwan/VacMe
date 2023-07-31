@@ -8,13 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
-@RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-@Document("vaccines")
-public class Vaccine {
-    private String id;
+public class VaccineWithoutID {
     private String disease;
     private String vaccination;
     private String batch;

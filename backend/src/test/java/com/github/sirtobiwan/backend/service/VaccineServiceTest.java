@@ -1,8 +1,7 @@
 package com.github.sirtobiwan.backend.service;
 
 import com.github.sirtobiwan.backend.models.Vaccine;
-import com.github.sirtobiwan.backend.models.VaccineRepo;
-import com.github.sirtobiwan.backend.models.VaccineService;
+import com.github.sirtobiwan.backend.repo.VaccineRepo;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
