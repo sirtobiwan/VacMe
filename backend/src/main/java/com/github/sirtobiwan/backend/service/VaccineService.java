@@ -9,17 +9,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class VaccineService {
     private final VaccineRepo vaccineRepo;
+    private final UuIdService uuIdService;
+
+    public VaccineService(VaccineRepo vaccineRepo, UuIdService uuidIdService) {
+        this.vaccineRepo = vaccineRepo;
+        this.uuIdService = uuidIdService;
+    }
 
     public List<Vaccine> allVaccines(){
         return vaccineRepo.findAll();
     }
 
-    public Vaccine addVaccine(Vaccine newVaccine){
-        newVaccine.setId(IdService.uuid());
-        vaccineRepo.insert(newVaccine);
-        return newVaccine;
+    public Vaccine addVaccine(VaccineWithoutID vaccineWithoutID){
+        String id = uuIdService.getRandomId();
+        Vaccine vaccine = new Vaccine(id, vaccineWithoutID.getDisease(), vaccineWithoutID.getVaccination(), vaccineWithoutID.getBatch(), vaccineWithoutID.getVaccineDate(), vaccineWithoutID.getDoctor(), vaccineWithoutID.getDue(), vaccineWithoutID.getDueDate());
+        return this.vaccineRepo.insert(vaccine);
     }
 }

@@ -21,8 +21,8 @@ public class VaccineController {
     }
 
     @PostMapping
-    public Vaccine addVaccine(@RequestBody VaccineWithoutID newVaccineWithoutID){
-        Vaccine newVaccine = new Vaccine("noID", newVaccineWithoutID.getDisease())
-        return vaccineService.addVaccine(newVaccine);
+    public List<Vaccine> addVaccine (@RequestBody VaccineWithoutID vaccineWithoutID){
+        this.vaccineService.addVaccine(vaccineWithoutID);
+        return this.vaccineService.allVaccines();
 }
 }
