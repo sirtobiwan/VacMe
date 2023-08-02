@@ -45,10 +45,6 @@ export default function VaccineCard({ vaccine }: Props) {
                             <div className="property-value">{vaccine.vaccineDate}</div>
                         </div>
                         <div className="vaccine-card-properties">
-                            <div className="property-name">ID:</div>
-                            <div className="property-value">{vaccine.id}</div>
-                        </div>
-                        <div className="vaccine-card-properties">
                             <div className="property-name">Vaccination:</div>
                             <div className="property-value">{vaccine.vaccination}</div>
                         </div>
