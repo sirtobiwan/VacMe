@@ -1,11 +1,8 @@
 package com.github.sirtobiwan.backend.service;
-
 import com.github.sirtobiwan.backend.models.Vaccine;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
