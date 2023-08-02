@@ -1,8 +1,6 @@
 import {FormEvent, useState} from "react";
 import {VaccineWithoutId} from "../models/Vaccine.tsx";
-import {Link, useNavigate} from "react-router-dom";
-import {ArrowBack} from "@mui/icons-material";
-import {IconButton} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import delay from 'delay';
@@ -64,11 +62,6 @@ export default function Form(props: FormProps) {
 
     return (
         <>
-        <Link to={"/my-vaccines"}>
-            <IconButton className={"back-button-form"}  >
-                <ArrowBack/>
-            </IconButton>
-        </Link>
         <form onSubmit={handleSubmit}>
             <section className="form-input-container">
             <div className="form-field">

@@ -4,10 +4,10 @@ import {Vaccine, VaccineWithoutId} from "./models/Vaccine.tsx";
 import axios from "axios";
 import Header from "./components/Header.tsx";
 import VaccineList from "./components/VaccineList.tsx";
-import {Link, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import Form from "./components/Form.tsx";
-import {IconButton} from "@mui/material";
-import {AddCircle} from "@mui/icons-material";
+import LandingPage from "./components/LandingPage.tsx";
+import NavigationBar from "./components/NavBar.tsx";
 
 
 export default function App() {
@@ -38,17 +38,14 @@ export default function App() {
         <>
             <Header />
             <Routes>
+                <Route path={"/"} element={<LandingPage />} />
                 <Route path={"/my-vaccines"} element={<VaccineList vaccines={vaccines} />} />
                 <Route path={"/add"} element={
                     <Form onSubmit={handleAddVaccine} />}
                 />
-            </Routes>
-            <Link to={"/add"}>
-                <IconButton className={"add-button"} color="primary" aria-label="add vaccine">
-                    <AddCircle />
-                </IconButton>
-            </Link>
 
+            </Routes>
+            <NavigationBar />
         </>
     )
 }
