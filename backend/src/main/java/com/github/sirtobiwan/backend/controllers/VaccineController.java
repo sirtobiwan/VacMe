@@ -1,9 +1,8 @@
 package com.github.sirtobiwan.backend.controllers;
 import com.github.sirtobiwan.backend.models.Vaccine;
-import com.github.sirtobiwan.backend.models.VaccineService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.github.sirtobiwan.backend.service.VaccineService;
+import com.github.sirtobiwan.backend.models.VaccineWithoutID;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +17,12 @@ public class VaccineController {
 
     @GetMapping
     public List<Vaccine> allVaccines(){
-        return vaccineService.allVaccines();
+        return this.vaccineService.allVaccines();
     }
+
+    @PostMapping
+    public List<Vaccine> addVaccine (@RequestBody VaccineWithoutID vaccineWithoutID){
+        this.vaccineService.addVaccine(vaccineWithoutID);
+        return this.vaccineService.allVaccines();
+}
 }
