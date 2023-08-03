@@ -22,7 +22,6 @@ export default function Form(props: FormProps) {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         props.onSubmit(formData);
-        // Reset the form after submission (optional)
         setFormData({
             disease: "",
             vaccination: "",
