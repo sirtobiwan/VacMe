@@ -47,4 +47,20 @@ class VaccineServiceTest {
         Assertions.assertEquals(expectedVaccine, actualVaccine);
 
     }
+
+    @Test
+    void expectUpdatedVaccine_whenUpdateVaccine(){
+        //GIVEN
+        VaccineWithoutID vaccineWithoutID = new VaccineWithoutID("Corona", "Biontech", "2" , LocalDate.now(),"Dr. Meier", true, LocalDate.now());
+        String randomId = "123";
+        Vaccine expectedVaccine = new Vaccine(randomId,"Corona", "Biontech", "2" , LocalDate.now(),"Dr. Meier", true, LocalDate.now());
+        //WHEN
+        when(vaccineRepo.findById(randomId)).thenReturn(java.util.Optional.of(expectedVaccine));
+        when(vaccineRepo.save(expectedVaccine)).thenReturn(expectedVaccine);
+        Vaccine actualVaccine = vaccineService.updateVaccineById(vaccineWithoutID, randomId);
+        //THEN
+        verify(vaccineRepo).findById(randomId);
+        verify(vaccineRepo).save(expectedVaccine);
+        assertEquals(expectedVaccine, actualVaccine);
+    }
 }

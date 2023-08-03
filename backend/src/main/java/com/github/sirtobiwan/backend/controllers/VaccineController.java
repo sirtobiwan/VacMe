@@ -23,6 +23,10 @@ public class VaccineController {
     @PostMapping
     public List<Vaccine> addVaccine (@RequestBody VaccineWithoutID vaccineWithoutID){
         this.vaccineService.addVaccine(vaccineWithoutID);
-        return this.vaccineService.allVaccines();
-}
+        return this.vaccineService.allVaccines();}
+
+    @PutMapping("/{id}")
+    public Vaccine updateVaccineById(@PathVariable String id, @RequestBody VaccineWithoutID vaccineWithoutID) {
+        return vaccineService.updateVaccineById(vaccineWithoutID, id);
+    }
 }

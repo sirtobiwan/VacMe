@@ -1,7 +1,9 @@
 package com.github.sirtobiwan.backend.controllers;
 
 import com.github.sirtobiwan.backend.models.Vaccine;
+import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
+import com.github.sirtobiwan.backend.service.VaccineService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +24,9 @@ class VaccineControllerTest {
 
     @Autowired
     VaccineRepo vaccineRepo;
+
+    @Autowired
+    private VaccineService vaccineService;
 
     @Test
     void expectAllVaccines_whenGetRequestForAllVaccines() throws Exception {
@@ -94,5 +99,43 @@ class VaccineControllerTest {
                         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(expectedVaccine));
+    }
+
+    @Test
+    @DirtiesContext
+    void expectUpdatedVaccine_whenUpdateVaccine()throws Exception{
+        VaccineWithoutID newVaccine = new VaccineWithoutID("Corona", "Biontech", "2", LocalDate.of(2023, 07, 25), "Dr. Meier", true, LocalDate.of(2024, 07, 25));
+        vaccineService.addVaccine(newVaccine);
+        String id = vaccineService.allVaccines().get(0).getId();
+        String updatedVaccine = """
+                     
+                     {
+                         "id": "%s",
+                         "disease":"Corona", 
+                         "vaccination":"Johnson",
+                          "batch":"2" ,
+                           "vaccineDate":"2023-07-25",
+                           "doctor":"Dr. Meier", 
+                           "due":true, 
+                           "dueDate":"2024-07-25"
+                     }
+                     
+                """.formatted(id);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/vaccine/" + id)
+                        .contentType(MediaType.APPLICATION_JSON).content("""
+                                                                  {
+                         
+                         "disease":"Corona", 
+                         "vaccination":"Johnson",
+                          "batch":"2" ,
+                           "vaccineDate":"2023-07-25",
+                           "doctor":"Dr. Meier", 
+                           "due":true, 
+                           "dueDate":"2024-07-25"
+                     }
+                                            """)
+                        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(updatedVaccine));
     }
 }
