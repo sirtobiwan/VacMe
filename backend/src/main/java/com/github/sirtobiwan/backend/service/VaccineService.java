@@ -34,4 +34,12 @@ public class VaccineService {
 
         return this.vaccineRepo.save(updateVaccine);
     }
+
+    public void deleteVaccineById(String idToDelete){
+        Vaccine vaccine = this.vaccineRepo.findById(idToDelete)
+                .orElseThrow(() -> new NoSuchElementException("Vaccine with ID " + idToDelete + " not found"));
+        this.vaccineRepo.delete(vaccine);
+    }
+
+
 }

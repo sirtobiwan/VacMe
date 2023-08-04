@@ -63,4 +63,17 @@ class VaccineServiceTest {
         verify(vaccineRepo).save(expectedVaccine);
         assertEquals(expectedVaccine, actualVaccine);
     }
+
+    @Test
+    void deleteVaccine_whenDeleteVaccineByIdIsCalled(){
+        //GIVEN
+        String randomId = "123";
+        Vaccine vaccine = new Vaccine(randomId,"Corona", "Biontech", "2" , LocalDate.now(),"Dr. Meier", true, LocalDate.now());
+        //WHEN
+        when(vaccineRepo.findById(randomId)).thenReturn(java.util.Optional.of(vaccine));
+        vaccineService.deleteVaccineById(randomId);
+        //THEN
+        verify(vaccineRepo).findById(randomId);
+        verify(vaccineRepo).delete(vaccine);
+    }
 }
