@@ -34,12 +34,20 @@ export default function App() {
                 console.error(error);
             });
     }
+
+    function handleUpdateVaccine(updatedVaccine: Vaccine) {
+        axios.put(`/api/vaccine/${updatedVaccine.id}`, updatedVaccine)
+            .then(() => getAllVaccines())
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
     return (
         <>
             <Header />
             <Routes>
                 <Route path={"/"} element={<LandingPage />} />
-                <Route path={"/my-vaccines"} element={<VaccineList vaccines={vaccines} />} />
+                <Route path={"/my-vaccines"} element={<VaccineList vaccines={vaccines} onUpdate={handleUpdateVaccine} />} />
                 <Route path={"/add"} element={
                     <Form onSubmit={handleAddVaccine} />}
                 />

@@ -4,6 +4,7 @@ import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class VaccineService {
@@ -23,5 +24,14 @@ public class VaccineService {
         String id = uuIdService.getRandomId();
         Vaccine vaccine = new Vaccine(id, vaccineWithoutID.getDisease(), vaccineWithoutID.getVaccination(), vaccineWithoutID.getBatch(), vaccineWithoutID.getVaccineDate(), vaccineWithoutID.getDoctor(), vaccineWithoutID.getDue(), vaccineWithoutID.getDueDate());
         return this.vaccineRepo.insert(vaccine);
+    }
+
+    public Vaccine updateVaccineById(VaccineWithoutID vaccineWithoutID, String id) {
+        Vaccine vaccine = this.vaccineRepo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Vaccine with ID " + id + " not found"));
+
+        Vaccine updateVaccine = new Vaccine(vaccine.getId(), vaccineWithoutID.getDisease(), vaccineWithoutID.getVaccination(), vaccineWithoutID.getBatch(), vaccineWithoutID.getVaccineDate(), vaccineWithoutID.getDoctor(), vaccineWithoutID.getDue(), vaccineWithoutID.getDueDate());
+
+        return this.vaccineRepo.save(updateVaccine);
     }
 }

@@ -130,3 +130,12 @@ body {
     top: -10px;
 }
 
+.editmode-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 15px;
+}
+.edit-button-expanded{
+    padding-top: 15px;
+}
