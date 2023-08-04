@@ -4,11 +4,9 @@
     --background-color: #f5f5f5;
     --card-background-color: #ffffff;
     --text-color: #333333;
-    --subtle-text-color: #5a5a5a;
-    --error-color: #ff0000;
     --heading-font: 'Arial', sans-serif;
     --text-font: 'Arial', sans-serif;
-    --border-radius: 20px; /* Erhöhung des Border-Radius für abgerundete Ecken */
+    --border-radius: 20px;
     --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     --property-box-background: #e8e8e8;
 }
@@ -32,8 +30,8 @@ body {
 .vaccine-card {
     background-color: var(--card-background-color);
     border-radius: var(--border-radius);
-    padding: 20px;
-    margin: 10px;
+    padding:10px;
+    margin-bottom: 5px;
     box-shadow: var(--box-shadow);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -51,7 +49,7 @@ body {
     gap: 2px;
     padding: 10px;
     background: var(--property-box-background);
-    font-size: 0.7em;
+
 }
 
 .vaccine-card-properties div {

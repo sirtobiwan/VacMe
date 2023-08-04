@@ -42,12 +42,20 @@ export default function App() {
                 console.error(error);
             });
     }
+
+    function handleDeleteVaccine(VaccineToDelete: Vaccine) {
+        axios.delete(`/api/vaccine/${VaccineToDelete.id}`)
+            .then(() => getAllVaccines())
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
     return (
         <>
             <Header />
             <Routes>
                 <Route path={"/"} element={<LandingPage />} />
-                <Route path={"/my-vaccines"} element={<VaccineList vaccines={vaccines} onUpdate={handleUpdateVaccine} />} />
+                <Route path={"/my-vaccines"} element={<VaccineList vaccines={vaccines} onUpdate={handleUpdateVaccine} onDelete={handleDeleteVaccine} />} />
                 <Route path={"/add"} element={
                     <Form onSubmit={handleAddVaccine} />}
                 />

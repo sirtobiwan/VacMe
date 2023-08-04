@@ -4,6 +4,7 @@ import VaccineCard from './VaccineCard';
 type Props = {
     vaccines: Vaccine[];
     onUpdate: (updatedVaccine: Vaccine) => void;
+    onDelete: (deletedVaccine: Vaccine) => void;
 };
 
 export default function VaccineList(props: Props) {
@@ -15,7 +16,7 @@ export default function VaccineList(props: Props) {
             {props.vaccines.map((vaccine) => (
                 <VaccineCard
                     key={`${vaccine.disease}-${vaccine.vaccineDate}`}
-                    vaccine={vaccine} onUpdate={props.onUpdate}
+                    vaccine={vaccine} onUpdate={props.onUpdate} onDelete={props.onDelete}
                 />
             ))}
         </div>
