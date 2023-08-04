@@ -29,4 +29,9 @@ public class VaccineController {
     public Vaccine updateVaccineById(@PathVariable String id, @RequestBody VaccineWithoutID vaccineWithoutID) {
         return vaccineService.updateVaccineById(vaccineWithoutID, id);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteVaccineById(@PathVariable String id){
+        this.vaccineService.deleteVaccineById(id);
+    }
 }

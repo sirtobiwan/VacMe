@@ -138,4 +138,14 @@ class VaccineControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(updatedVaccine));
     }
+
+    @Test
+    @DirtiesContext
+    void expectDeletedVaccine_whenDeleteVaccine()throws Exception{
+        VaccineWithoutID newVaccine = new VaccineWithoutID("Corona", "Biontech", "2", LocalDate.of(2023, 07, 25), "Dr. Meier", true, LocalDate.of(2024, 07, 25));
+        vaccineService.addVaccine(newVaccine);
+        String id = vaccineService.allVaccines().get(0).getId();
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/vaccine/" + id))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }
