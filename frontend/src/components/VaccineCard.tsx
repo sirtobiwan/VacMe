@@ -1,11 +1,10 @@
 import {FormEvent, useState} from 'react';
-import { Card, CardContent, Typography, IconButton, Checkbox, FormControlLabel, TextField, Button } from '@mui/material';
+import { Card, CardContent, Typography, IconButton, Checkbox, FormControlLabel, TextField, Button,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle  } from '@mui/material';
 import '../App.css';
 import {Vaccine} from "../models/Vaccine.tsx";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {toast, ToastContainer} from "react-toastify";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
