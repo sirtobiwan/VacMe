@@ -1,7 +1,6 @@
 :root {
     --primary-color: #007bff;
     --secondary-color: #007bff;
-    --background-color: #f5f5f5;
     --card-background-color: #ffffff;
     --text-color: #333333;
     --heading-font: 'Arial', sans-serif;
@@ -13,18 +12,15 @@
 
 body {
     font-family: var(--text-font);
-    background-color: var(--background-color);
     margin: 0;
-    padding: 0;
-    padding-bottom: 70px;
 }
 
 #root {
     max-width: 1280px;
-    margin: 0 auto;
+    margin: auto ;
     padding: 2rem;
     text-align: center;
-    background: #e9ecef;
+    background:#e9ecef;
 }
 
 .vaccine-card {
@@ -119,7 +115,6 @@ body {
 }
 
 .form-input-container .form-field input {
-
     width: 140px;
 }
 .back-button-form {
@@ -137,3 +132,25 @@ body {
 .edit-button-expanded{
     padding-top: 15px;
 }
+
+.landing-page h1 {
+    color: var(--primary-color);
+    font-family: var(--heading-font);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 100px;
+}
+
+
+.vaccine-icon {
+    font-size: 6rem;
+    margin-top: 30px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
