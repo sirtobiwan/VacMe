@@ -61,7 +61,9 @@ export default function App() {
                 />
 
             </Routes>
+
             <NavigationBar />
+
         </>
     )
 }

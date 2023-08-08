@@ -1,11 +1,13 @@
-import {FormEvent, useState} from 'react';
-import { Card, CardContent, Typography, IconButton, Checkbox, FormControlLabel, TextField, Button,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle  } from '@mui/material';
+import {useState} from 'react';
+import { Card, CardContent, Typography, IconButton, TextField, Button, Checkbox, FormControlLabel } from '@mui/material';
 import '../App.css';
 import {Vaccine} from "../models/Vaccine.tsx";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {toast, ToastContainer} from "react-toastify";
 import DeleteIcon from '@mui/icons-material/Delete';
+import VaccineEditForm from './VaccineEditForm';
+import VaccineDeleteDialog from './VaccineDeleteDialog';
 
 type Props = {
     vaccine: Vaccine;
@@ -39,19 +41,19 @@ export default function VaccineCard({ vaccine, onUpdate, onDelete }: Props) {
             draggable: true,
             progress: undefined,
             theme: "colored",
-        })
+        });
     };
 
-    function handleEditMode(){
+    const handleEditMode = () => {
         setEditMode(!editMode)
-    }
+    };
 
-    function handleCancel() {
+    const handleCancel = () => {
         setUpdatedVaccine(vaccine);
         setEditMode(false);
-    }
+    };
 
-    function handleUpdateVaccine(event: FormEvent<HTMLFormElement>) {
+    const handleUpdateVaccine = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         onUpdate(updatedVaccine);
         handleEditMode();
@@ -64,13 +66,13 @@ export default function VaccineCard({ vaccine, onUpdate, onDelete }: Props) {
             draggable: true,
             progress: undefined,
             theme: "colored",
-        })
-    }
+        });
+    };
 
-    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         setUpdatedVaccine({ ...updatedVaccine, [event.target.name]: value });
-    }
+    };
 
     const toggleExpanded = () => {
         setExpanded((prevState) => !prevState);
@@ -107,19 +109,12 @@ export default function VaccineCard({ vaccine, onUpdate, onDelete }: Props) {
                 {expanded && (
                     <div>
                         {editMode ? (
-                            <form className={"editmode-card-container"} onSubmit={handleUpdateVaccine}>
-                                {updatedVaccine.due && <TextField required label="Next Vaccine" name="dueDate" value={updatedVaccine.dueDate} onChange={handleInputChange} />}
-                                <TextField required label="Last Vaccine" name="vaccineDate" value={updatedVaccine.vaccineDate} onChange={handleInputChange} />
-                                <TextField required label="Vaccination" name="vaccination" value={updatedVaccine.vaccination} onChange={handleInputChange} />
-                                <TextField required label="Batch" name="batch" value={updatedVaccine.batch} onChange={handleInputChange} />
-                                <TextField required label="Doctor" name="doctor" value={updatedVaccine.doctor} onChange={handleInputChange} />
-                                <Button variant="contained" color="primary" type="submit">
-                                    Save
-                                </Button>
-                                <Button variant="contained" color="secondary" onClick={handleCancel}>
-                                    Cancel
-                                </Button>
-                            </form>
+                            <VaccineEditForm
+                                updatedVaccine={updatedVaccine}
+                                handleInputChange={handleInputChange}
+                                handleUpdateVaccine={handleUpdateVaccine}
+                                handleCancel={handleCancel}
+                            />
                         ) : (
                             <div className={"expanded-container"}>
                                 {vaccine.due && (
@@ -151,29 +146,11 @@ export default function VaccineCard({ vaccine, onUpdate, onDelete }: Props) {
                                     <Button style={{width: '100px'}} variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={handleDeleteDialogOpen}>
                                         Delete
                                     </Button>
-                                    <Dialog
-                                        open={deleteDialogOpen}
-                                        onClose={handleDeleteDialogClose}
-                                        aria-labelledby="alert-dialog-title"
-                                        aria-describedby="alert-dialog-description"
-                                    >
-                                        <DialogTitle id="alert-dialog-title">
-                                            {"Delete this Vaccine?"}
-                                        </DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText id="alert-dialog-description">
-                                                Are you sure you want to delete this vaccine? This action cannot be undone.
-                                            </DialogContentText>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={handleDeleteDialogClose} color="primary">
-                                                Cancel
-                                            </Button>
-                                            <Button onClick={handleDeleteVaccine} color="primary" autoFocus>
-                                                Delete
-                                            </Button>
-                                        </DialogActions>
-                                    </Dialog>
+                                    <VaccineDeleteDialog
+                                        deleteDialogOpen={deleteDialogOpen}
+                                        handleDeleteDialogClose={handleDeleteDialogClose}
+                                        handleDeleteVaccine={handleDeleteVaccine}
+                                    />
                                 </div>
                             </div>
                         )}
@@ -183,7 +160,4 @@ export default function VaccineCard({ vaccine, onUpdate, onDelete }: Props) {
             <ToastContainer/>
         </Card>
     );
-
 }
-
-
