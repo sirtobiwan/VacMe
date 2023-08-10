@@ -4,11 +4,13 @@ import {Vaccine, VaccineWithoutId} from "./models/Vaccine.tsx";
 import axios from "axios";
 import Header from "./components/Header.tsx";
 import VaccineList from "./components/VaccineList.tsx";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import Form from "./components/Form.tsx";
 import LandingPage from "./components/LandingPage.tsx";
 import NavigationBar from "./components/NavBar.tsx";
 import Login from "./components/Login.tsx";
+import Register from "./components/Register.tsx";
+import {ToastContainer} from "react-toastify";
 
 
 export default function App() {
@@ -61,11 +63,22 @@ export default function App() {
             })
     }
 
+    const location = useLocation();
+
     useEffect(() => {
-        if (!user) {
+        if (!user && location.pathname !== "/register") {
             navigate("/login");
         }
-    }, [user, navigate]);
+    }, [user, navigate, location.pathname]);
+
+    function handleRegister(username: string, password: string) {
+        axios.post("/api/users/register", {username, password})
+            .then(response => {
+                setUser(response.data)
+                navigate("/")
+            })
+    }
+
 
     return (
         <>
@@ -74,12 +87,13 @@ export default function App() {
                 <Route path={"/"} element={user ? <LandingPage /> : <Login onLogin={handleLogin} />} />
                 <Route path={"/my-vaccines"} element={<VaccineList vaccines={vaccines} onUpdate={handleUpdateVaccine} onDelete={handleDeleteVaccine} />} />
                 <Route path={"/login"} element={<Login onLogin={handleLogin} />} />
+                <Route path={"/register"} element={<Register onSignUp={handleRegister} />} />
                 <Route path={"/add"} element={
                     <Form onSubmit={handleAddVaccine} />}
                 />
 
             </Routes>
-
+            <ToastContainer />
             <NavigationBar />
 
         </>

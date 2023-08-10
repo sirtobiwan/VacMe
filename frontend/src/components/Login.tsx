@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Button, TextField, Paper, Grid, Typography } from "@mui/material";
+import { Button, TextField, Paper, Grid, Typography, Link } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
-interface LoginProps {
+type LoginProps = {
     onLogin: (username: string, password: string) => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onLogin(username, password);
@@ -47,6 +48,16 @@ export default function Login({ onLogin }: LoginProps) {
                             Login
                         </Button>
                     </form>
+                    <Typography style={{ marginTop: "1rem" }}>
+                        No account yet?
+                        <span style={{ marginLeft: "0.5rem" }}>
+                             Register{" "}
+                            <Link onClick={() => navigate("/register")} style={{ cursor: "pointer" }}>
+                              here
+                            </Link>
+                        </span>
+                    </Typography>
+
                 </Paper>
             </Grid>
         </Grid>
