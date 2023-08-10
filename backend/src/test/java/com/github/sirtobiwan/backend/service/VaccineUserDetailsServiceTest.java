@@ -32,4 +32,15 @@ class VaccineUserDetailsServiceTest {
     void expectUsernameNotFoundException_whenFindByUsername() {
         Assertions.assertThrows(UsernameNotFoundException.class, () -> vaccineUserDetailsService.loadUserByUsername("fritz"));
     }
+
+    @Test
+    void register(){
+        //GIVEN
+        VaccineUser newVaccineUser = new VaccineUser("123", "TestUser", "123456");
+        String expectedUserName = "TestUser";
+        //WHEN
+        String actualUserName = vaccineUserDetailsService.register(newVaccineUser);
+        //THEN
+        Assertions.assertEquals(expectedUserName, actualUserName);
+    }
 }
