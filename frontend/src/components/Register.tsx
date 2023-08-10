@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, TextField, Paper, Grid, Typography, IconButton, InputAdornment } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {toast, ToastContainer} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Importieren Sie den CSS für react-toastify
 import { useNavigate } from "react-router-dom"; // Navigations-Hook von react-router
 
