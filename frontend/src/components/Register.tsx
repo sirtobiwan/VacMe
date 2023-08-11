@@ -24,18 +24,20 @@ export default function Register({ onSignUp }: RegisterProps) {
 
     const navigate = useNavigate();
 
+    const PASSWORD_MISMATCH_MSG = "Passwords do not match.";
+    const PASSWORD_LENGTH_MSG = "Password should be at least 8 characters.";
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         let valid = true;
         const newError: ErrorState = {};
 
         if (password.length < 8) {
-            newError.password = "Password should be at least 8 characters.";
+            newError.password =  PASSWORD_LENGTH_MSG;
             valid = false;
         }
 
         if (password !== passwordConfirm) {
-            newError.passwordConfirm = "Passwords do not match.";
+            newError.passwordConfirm = PASSWORD_MISMATCH_MSG;
             valid = false;
         }
 
