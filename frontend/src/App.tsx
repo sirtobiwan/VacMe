@@ -10,12 +10,13 @@ import LandingPage from "./components/LandingPage.tsx";
 import NavigationBar from "./components/NavBar.tsx";
 import Login from "./components/Login.tsx";
 import Register from "./components/Register.tsx";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
+import UserProfile from "./components/UserProfile.tsx";
 
 
 export default function App() {
     const [vaccines, setVaccines] = useState<Vaccine[]>([]);
-    const [user, setUser] = useState<string>()
+    const [user, setUser] = useState<string | null>()
 
     useEffect(getAllVaccines, [])
 
@@ -66,10 +67,11 @@ export default function App() {
     const location = useLocation();
 
     useEffect(() => {
-        if (!user && location.pathname !== "/register") {
+        if (!user && !["/register", "/login"].includes(location.pathname)) {
             navigate("/login");
         }
     }, [user, navigate, location.pathname]);
+
 
     function handleRegister(username: string, password: string) {
         axios.post("/api/users/register", {username, password})
@@ -77,6 +79,22 @@ export default function App() {
                 setUser(response.data)
                 navigate("/")
             })
+    }
+
+    function handleLogout() {
+        axios.post("/api/users/logout")
+            .then(request => console.log(request.data))
+        setUser(null);
+        toast.info("Logged out!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
     }
 
 
@@ -91,6 +109,7 @@ export default function App() {
                 <Route path={"/add"} element={
                     <Form onSubmit={handleAddVaccine} />}
                 />
+                <Route path={"/me"} element={<UserProfile user={user} onLogout={handleLogout} />} />
 
             </Routes>
             <ToastContainer />
