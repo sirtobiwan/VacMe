@@ -17,6 +17,7 @@ class VaccineServiceTest {
     UuIdService uuIdService = mock(UuIdService.class);
     VaccineService vaccineService = new VaccineService(vaccineRepo, uuIdService);
 
+
     @Test
     void expectAllVaccines_whenAllVaccinesAreCalled() {
         //GIVEN

@@ -16,7 +16,7 @@ import java.util.Optional;
 class VaccineUserDetailsServiceTest {
     VaccineUserRepo vaccineUserRepo = mock(VaccineUserRepo.class);
 
-    VaccineUserDetailsService vaccineUserDetailsService = new VaccineUserDetailsService(vaccineUserRepo);
+    VaccineUserDetailsService vaccineUserDetailsService = new VaccineUserDetailsService(vaccineUserRepo , new UuIdService());
 
     @Test
     void loadUserByUsername() {

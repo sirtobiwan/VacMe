@@ -14,11 +14,13 @@ import java.util.Collections;
 @Service
 public class VaccineUserDetailsService implements UserDetailsService {
     private final VaccineUserRepo vaccineUserRepo;
+    private final UuIdService uuIdService;
 
     private final PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
-    public VaccineUserDetailsService(VaccineUserRepo vaccineUserRepo) {
+    public VaccineUserDetailsService(VaccineUserRepo vaccineUserRepo, UuIdService uuIdService) {
         this.vaccineUserRepo = vaccineUserRepo;
+        this.uuIdService = uuIdService;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class VaccineUserDetailsService implements UserDetailsService {
 
     public String register(VaccineUser vaccineUser) {
         String hashedPassword = encoder.encode(vaccineUser.password());
-        VaccineUser newVaccineUser = new VaccineUser(UuIdService.getRandomId() ,vaccineUser.username(), hashedPassword);
+        VaccineUser newVaccineUser = new VaccineUser(uuIdService.getRandomId() ,vaccineUser.username(), hashedPassword);
         vaccineUserRepo.insert(newVaccineUser);
         return newVaccineUser.username();
     }
