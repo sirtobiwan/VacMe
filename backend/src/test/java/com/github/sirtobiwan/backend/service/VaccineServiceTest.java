@@ -17,6 +17,7 @@ class VaccineServiceTest {
     UuIdService uuIdService = mock(UuIdService.class);
     VaccineService vaccineService = new VaccineService(vaccineRepo, uuIdService);
 
+
     @Test
     void expectAllVaccines_whenAllVaccinesAreCalled() {
         //GIVEN
@@ -39,7 +40,7 @@ class VaccineServiceTest {
         Vaccine expectedVaccine = new Vaccine(randomId,"Corona", "Biontech", "2" , LocalDate.now(),"Dr. Meier", true, LocalDate.now());
         //WHEN
         when(uuIdService.getRandomId()).thenReturn(randomId);
-        when(vaccineRepo.insert(expectedVaccine)).thenReturn(expectedVaccine);
+        when(vaccineRepo.insert(any(Vaccine.class))).thenReturn(expectedVaccine);
         Vaccine actualVaccine = vaccineService.addVaccine(vaccineWithoutID);
         //THEN
         verify(uuIdService).getRandomId();
