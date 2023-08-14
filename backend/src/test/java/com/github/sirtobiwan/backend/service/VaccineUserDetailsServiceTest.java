@@ -2,6 +2,7 @@ package com.github.sirtobiwan.backend.service;
 
 import static org.mockito.Mockito.*;
 
+import com.github.sirtobiwan.backend.security.DtoVaccineUser;
 import com.github.sirtobiwan.backend.security.VaccineUser;
 import com.github.sirtobiwan.backend.security.VaccineUserDetailsService;
 import com.github.sirtobiwan.backend.security.VaccineUserRepo;
@@ -36,10 +37,10 @@ class VaccineUserDetailsServiceTest {
     @Test
     void register(){
         //GIVEN
-        VaccineUser newVaccineUser = new VaccineUser("123", "TestUser", "123456");
+        DtoVaccineUser newDtoVaccineUser = new DtoVaccineUser( "TestUser", "123456");
         String expectedUserName = "TestUser";
         //WHEN
-        String actualUserName = vaccineUserDetailsService.register(newVaccineUser);
+        String actualUserName = vaccineUserDetailsService.register(newDtoVaccineUser);
         //THEN
         Assertions.assertEquals(expectedUserName, actualUserName);
     }

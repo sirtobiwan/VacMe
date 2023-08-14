@@ -28,13 +28,10 @@ public class VaccineUserController {
                 .getName();
     }
 
-    private VaccineUser convertDtoToEntity(DtoVaccineUser dto) {
-        return new VaccineUser(dto.id(), dto.username(), dto.password());
-    }
+
     @PostMapping("/register")
-    public String register(@RequestBody DtoVaccineUser dtoVaccineUser){
-        VaccineUser vaccineUser = convertDtoToEntity(dtoVaccineUser);
-        return vaccineUserDetailsService.register(vaccineUser);
+    public String register(@RequestBody DtoVaccineUser dtoVaccineUser) {
+        return vaccineUserDetailsService.register(dtoVaccineUser);
     }
 
 

@@ -30,9 +30,10 @@ public class VaccineUserDetailsService implements UserDetailsService {
         return new User(vaccineUser.username(), vaccineUser.password(), Collections.emptyList());
     }
 
-    public String register(VaccineUser vaccineUser) {
-        String hashedPassword = encoder.encode(vaccineUser.password());
-        VaccineUser newVaccineUser = new VaccineUser(uuIdService.getRandomId() ,vaccineUser.username(), hashedPassword);
+    public String register(DtoVaccineUser dtoVaccineUser) {
+        String id = uuIdService.getRandomId();
+        String hashedPassword = encoder.encode(dtoVaccineUser.password());
+        VaccineUser newVaccineUser = new VaccineUser(id, dtoVaccineUser.username(), hashedPassword);
         vaccineUserRepo.insert(newVaccineUser);
         return newVaccineUser.username();
     }

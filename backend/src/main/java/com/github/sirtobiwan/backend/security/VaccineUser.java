@@ -10,5 +10,4 @@ public record VaccineUser(
         String username,
         String password
 ) {
-
 }
