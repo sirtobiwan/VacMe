@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(httpRequests ->
                         httpRequests
                                 .requestMatchers(HttpMethod.GET, "/api/vaccine").permitAll()
+                                .requestMatchers("/api/vaccine/recommendation/**").permitAll()
                                 .requestMatchers("/api/vaccine").authenticated()
                                 .requestMatchers("/api/vaccine/**").authenticated()
                                 .requestMatchers("/api/users/*").permitAll()
