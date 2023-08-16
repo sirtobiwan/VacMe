@@ -3,6 +3,7 @@ import com.github.sirtobiwan.backend.exceptions.CountryNotFoundException;
 import com.github.sirtobiwan.backend.models.Vaccine;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -55,12 +56,20 @@ public class VaccineService {
                 throw new CountryNotFoundException(country);
             }
             return recommendations;
+        } catch (HttpStatusException e) {
+            if (e.getStatusCode() == 404) {
+                throw new CountryNotFoundException(country);
+            }
+            throw new RuntimeException("HTTP-Fehler beim Abrufen der Impfempfehlung", e);
         } catch (CountryNotFoundException e) {
             throw e;
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Abrufen der Impfempfehlung", e);
         }
     }
+
+
+
 
 
 }
