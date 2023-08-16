@@ -12,6 +12,7 @@ import Login from "./components/Login.tsx";
 import Register from "./components/Register.tsx";
 import {toast, ToastContainer} from "react-toastify";
 import UserProfile from "./components/UserProfile.tsx";
+import CountryRecommendation from "./components/CountryRecommendation.tsx";
 
 
 export default function App() {
@@ -110,7 +111,7 @@ export default function App() {
                     <Form onSubmit={handleAddVaccine} />}
                 />
                 <Route path={"/me"} element={<UserProfile user={user} onLogout={handleLogout} />} />
-
+                <Route path={"/traveling"} element={<CountryRecommendation />} />
             </Routes>
             <ToastContainer />
             <NavigationBar />

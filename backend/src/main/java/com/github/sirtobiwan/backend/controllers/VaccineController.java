@@ -4,6 +4,7 @@ import com.github.sirtobiwan.backend.service.VaccineService;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
 
 @RestController
@@ -33,5 +34,10 @@ public class VaccineController {
     @DeleteMapping("/{id}")
     public void deleteVaccineById(@PathVariable String id){
         this.vaccineService.deleteVaccineById(id);
+    }
+
+    @GetMapping("/recommendation/{country}")
+    public List<String> getVaccinationRecommendation(@PathVariable String country) {
+        return vaccineService.getVaccinationRecommendation(country);
     }
 }

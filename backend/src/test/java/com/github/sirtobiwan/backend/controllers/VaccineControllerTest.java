@@ -12,11 +12,16 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.time.LocalDate;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -65,7 +70,7 @@ class VaccineControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/vaccine"))
 
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(expectedList));
     }
 
@@ -103,7 +108,7 @@ class VaccineControllerTest {
                                             """).with(csrf())
                         )
 
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(expectedVaccine));
     }
 
@@ -142,7 +147,7 @@ class VaccineControllerTest {
                      }
                                             """)
                         .with(csrf()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(updatedVaccine));
     }
 
@@ -154,6 +159,28 @@ class VaccineControllerTest {
         vaccineService.addVaccine(newVaccine);
         String id = vaccineService.allVaccines().get(0).getId();
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/vaccine/" + id) .with(csrf()))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
+    }
+    @Test
+    @WithMockUser
+    void expectCorrectRecommendations_whenValidCountryGiven() throws Exception {
+        String country = "Deutschland";
+        String expectedRecommendations = """
+        ["Diphtherie", "Tetanus"]
+    """;
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/vaccine/recommendation/" + country))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(expectedRecommendations));
+    }
+
+
+    @Test
+    @WithMockUser
+    void expectCountryNotFoundException_whenInvalidCountryGiven() throws Exception {
+        String invalidCountry = "InvalidCountryName";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/vaccine/recommendation/" + invalidCountry))
+                .andExpect(status().isNotFound())
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Fehler beim Abrufen der Impfempfehlung für das Land: " + invalidCountry)));
     }
 }

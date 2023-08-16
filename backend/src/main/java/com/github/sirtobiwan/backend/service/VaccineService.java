@@ -1,7 +1,11 @@
 package com.github.sirtobiwan.backend.service;
+import com.github.sirtobiwan.backend.exceptions.CountryNotFoundException;
 import com.github.sirtobiwan.backend.models.Vaccine;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -41,5 +45,14 @@ public class VaccineService {
         this.vaccineRepo.delete(vaccine);
     }
 
-
+    public List<String> getVaccinationRecommendation(String country) {
+        try {
+            String url = "https://tropeninstitut.de/ihr-reiseziel/" + country;
+            Document doc = Jsoup.connect(url).get();
+            Elements elements = doc.select("div.col-xs-12 h2:contains(Impfempfehlung) + p + ul li");
+            return elements.eachText();
+        } catch (Exception e) {
+            throw new CountryNotFoundException("Fehler beim Abrufen der Impfempfehlung für das Land: " + country);
+        }
+    }
 }
