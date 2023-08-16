@@ -107,6 +107,7 @@ class VaccineServiceTest {
             assertEquals(List.of("Diphtherie", "Tetanus"), actualRecommendations);
         }
     }
+
     @Test
     void expectCountryNotFoundException_whenCountryIsNotFound() throws IOException {
         // Given
@@ -121,10 +122,27 @@ class VaccineServiceTest {
             mockedJsoup.when(() -> Jsoup.connect("https://tropeninstitut.de/ihr-reiseziel/" + country)).thenReturn(mockConnection);
 
             // When & Then
-            assertThrows(CountryNotFoundException.class, () -> {
-                vaccineService.getVaccinationRecommendation(country);
-            });
+            assertThrows(CountryNotFoundException.class, () ->
+                    vaccineService.getVaccinationRecommendation(country)
+            );
         }
     }
 
+    @Test
+    void expectCountryNotFoundException_whenCountryIsInvalid() throws IOException {
+        // Given
+        String invalidCountry = "InvalidCountry";
+        Connection mockConnection = mock(Connection.class);
+
+        when(mockConnection.get()).thenThrow(new IOException());
+
+        try (MockedStatic<Jsoup> mockedJsoup = mockStatic(Jsoup.class)) {
+            mockedJsoup.when(() -> Jsoup.connect("https://tropeninstitut.de/ihr-reiseziel/" + invalidCountry)).thenReturn(mockConnection);
+
+            // When & Then
+            assertThrows(CountryNotFoundException.class, () ->
+                    vaccineService.getVaccinationRecommendation(invalidCountry)
+            );
+        }
+    }
 }

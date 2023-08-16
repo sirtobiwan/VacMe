@@ -50,21 +50,9 @@ public class VaccineService {
             String url = "https://tropeninstitut.de/ihr-reiseziel/" + country;
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc.select("div.col-xs-12 h2:contains(Impfempfehlung) + p + ul li");
-            List<String> recommendations = elements.eachText();
-
-            if (recommendations.isEmpty() || doc.toString().contains("404 - Seite nicht gefunden")) {
-                throw new CountryNotFoundException(country);
-            }
-
-            return recommendations;
+            return elements.eachText();
         } catch (Exception e) {
             throw new CountryNotFoundException("Fehler beim Abrufen der Impfempfehlung für das Land: " + country);
         }
     }
-
-
-
-
-
-
 }
