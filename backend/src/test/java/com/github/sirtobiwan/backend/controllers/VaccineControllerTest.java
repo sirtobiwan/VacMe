@@ -156,4 +156,26 @@ class VaccineControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/vaccine/" + id) .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+    @Test
+    @WithMockUser
+    void expectCorrectRecommendations_whenValidCountryGiven() throws Exception {
+        String country = "Deutschland";
+        String expectedRecommendations = """
+        ["Diphtherie", "Tetanus"]
+    """;
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/vaccine/recommendation/" + country))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(expectedRecommendations));
+    }
+
+    @Test
+    @WithMockUser
+    void expectBadRequest_whenInvalidCountryNameGiven() throws Exception {
+        String invalidCountry = "InvalidCountryName";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/vaccine/recommendation/" + invalidCountry))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
+    }
+
+
 }

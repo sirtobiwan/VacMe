@@ -60,8 +60,8 @@ export default function CountryRecommendation() {
             )}
 
             <List>
-                {recommendations.map((rec, index) => (
-                    <ListItem key={index}>
+                {recommendations.map((rec) => (
+                    <ListItem key={rec}>
                         {rec}
                     </ListItem>
                 ))}
