@@ -1,10 +1,8 @@
 package com.github.sirtobiwan.backend.service;
 import com.github.sirtobiwan.backend.exceptions.CountryNotFoundException;
-import com.github.sirtobiwan.backend.exceptions.VaccinationRecommendationFetchException;
 import com.github.sirtobiwan.backend.models.Vaccine;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -53,21 +51,17 @@ public class VaccineService {
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc.select("div.col-xs-12 h2:contains(Impfempfehlung) + p + ul li");
             List<String> recommendations = elements.eachText();
-            if(recommendations.isEmpty()) {
+
+            if (recommendations.isEmpty() || doc.toString().contains("404 - Seite nicht gefunden")) {
                 throw new CountryNotFoundException(country);
             }
+
             return recommendations;
-        } catch (HttpStatusException e) {
-            if (e.getStatusCode() == 404) {
-                throw new CountryNotFoundException(country);
-            }
-            throw new VaccinationRecommendationFetchException("HTTP-Fehler beim Abrufen der Impfempfehlung", e);
-        } catch (CountryNotFoundException e) {
-            throw e;
         } catch (Exception e) {
-            throw new VaccinationRecommendationFetchException("Fehler beim Abrufen der Impfempfehlung", e);
+            throw new CountryNotFoundException("Fehler beim Abrufen der Impfempfehlung für das Land: " + country);
         }
     }
+
 
 
 
