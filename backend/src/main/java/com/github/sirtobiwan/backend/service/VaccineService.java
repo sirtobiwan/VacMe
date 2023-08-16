@@ -1,5 +1,6 @@
 package com.github.sirtobiwan.backend.service;
 import com.github.sirtobiwan.backend.exceptions.CountryNotFoundException;
+import com.github.sirtobiwan.backend.exceptions.VaccinationRecommendationFetchException;
 import com.github.sirtobiwan.backend.models.Vaccine;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
@@ -60,11 +61,11 @@ public class VaccineService {
             if (e.getStatusCode() == 404) {
                 throw new CountryNotFoundException(country);
             }
-            throw new RuntimeException("HTTP-Fehler beim Abrufen der Impfempfehlung", e);
+            throw new VaccinationRecommendationFetchException("HTTP-Fehler beim Abrufen der Impfempfehlung", e);
         } catch (CountryNotFoundException e) {
             throw e;
         } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Abrufen der Impfempfehlung", e);
+            throw new VaccinationRecommendationFetchException("Fehler beim Abrufen der Impfempfehlung", e);
         }
     }
 
