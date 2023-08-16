@@ -145,4 +145,16 @@ class VaccineServiceTest {
             );
         }
     }
+    @Test
+    void expectInternalServerError_whenUnexpectedExceptionOccurs() {
+        // Given
+        VaccineWithoutID vaccineWithoutID = new VaccineWithoutID("Corona", "Biontech", "2", LocalDate.now(), "Dr. Meier", true, LocalDate.now());
+        when(uuIdService.getRandomId()).thenReturn("123");
+        when(vaccineRepo.insert(any(Vaccine.class))).thenThrow(new RuntimeException("Unexpected exception"));
+
+        // When & Then
+        assertThrows(RuntimeException.class, () -> {
+            vaccineService.addVaccine(vaccineWithoutID);
+        });
+    }
 }
