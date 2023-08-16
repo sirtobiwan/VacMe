@@ -1,15 +1,20 @@
 package com.github.sirtobiwan.backend.service;
 
+import com.github.sirtobiwan.backend.exceptions.CountryNotFoundException;
 import com.github.sirtobiwan.backend.models.Vaccine;
 import com.github.sirtobiwan.backend.models.VaccineWithoutID;
 import com.github.sirtobiwan.backend.repo.VaccineRepo;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class VaccineServiceTest {
@@ -77,4 +82,44 @@ class VaccineServiceTest {
         verify(vaccineRepo).findById(randomId);
         verify(vaccineRepo).delete(vaccine);
     }
+
+        @Test
+        void expectVaccinationRecommendation_whenCountryIsValid() {
+            try (MockedStatic<Jsoup> jsoupMock = mockStatic(Jsoup.class)) {
+                //GIVEN
+                Document mockDoc = mock(Document.class);
+                Elements mockElements = mock(Elements.class);
+                String country = "Germany";
+                when(mockElements.eachText()).thenReturn(List.of("Recommendation 1", "Recommendation 2"));
+                when(mockDoc.select("div.col-xs-12 h2:contains(Impfempfehlung) + p + ul li")).thenReturn(mockElements);
+                jsoupMock.when(() -> Jsoup.connect("https://tropeninstitut.de/ihr-reiseziel/" + country).get()).thenReturn(mockDoc);
+
+                //WHEN
+                List<String> actualRecommendations = vaccineService.getVaccinationRecommendation(country);
+
+                //THEN
+                assertEquals(List.of("Recommendation 1", "Recommendation 2"), actualRecommendations);
+            }
+        }
+
+        @Test
+        void expectCountryNotFoundException_whenCountryIsInvalid() {
+            try (MockedStatic<Jsoup> jsoupMock = mockStatic(Jsoup.class)) {
+                //GIVEN
+                Document mockDoc = mock(Document.class);
+                Elements mockElements = mock(Elements.class);
+                String invalidCountry = "InvalidCountry";
+                when(mockElements.eachText()).thenReturn(List.of());
+                when(mockDoc.toString()).thenReturn("404 - Seite nicht gefunden");
+                when(mockDoc.select("div.col-xs-12 h2:contains(Impfempfehlung) + p + ul li")).thenReturn(mockElements);
+                jsoupMock.when(() -> Jsoup.connect("https://tropeninstitut.de/ihr-reiseziel/" + invalidCountry).get()).thenReturn(mockDoc);
+
+                //WHEN
+                Exception exception = assertThrows(CountryNotFoundException.class, () -> vaccineService.getVaccinationRecommendation(invalidCountry));
+
+                //THEN
+                assertTrue(exception.getMessage().contains("Fehler beim Abrufen der Impfempfehlung für das Land: " + invalidCountry));
+            }
+        }
+
 }
