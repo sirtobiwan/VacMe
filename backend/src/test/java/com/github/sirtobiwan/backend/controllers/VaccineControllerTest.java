@@ -181,6 +181,6 @@ class VaccineControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/vaccine/recommendation/" + invalidCountry))
                 .andExpect(status().isNotFound())
-                .andExpect(MockMvcResultMatchers.content().string(containsString("Kein Land mit dem Namen " + invalidCountry + " gefunden.")));
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Fehler beim Abrufen der Impfempfehlung für das Land: " + invalidCountry)));
     }
 }
