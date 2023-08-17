@@ -5,6 +5,6 @@ The Digital Vaccine Passport App is a web application that allows users to manag
 User: test
 Password: test1
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sirtobiwan_VacMe-frontend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=sirtobiwan_VacMe-frontend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=sirtobiwan_VacMe&metric=coverage)](https://sonarcloud.io/summary/new_code?id=sirtobiwan_VacMe)
 
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=sirtobiwan_VacMe-frontend&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=sirtobiwan_VacMe-frontend)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=sirtobiwan_VacMe&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=sirtobiwan_VacMe)
