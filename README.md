@@ -1,6 +1,6 @@
 # VacMe
 
-The Digital Vaccine Passport App is a web application that allows users to manage their vaccinations. The app enables users to view, add, edit, and delete vaccinations. Vaccinations can be sorted by their due date to provide users with a quick overview of upcoming vaccinations.
+The Digital Vaccine Passport App is a web application that allows users to manage their vaccinations. The app enables users to view, add, edit, and delete vaccinations. Vaccinations can be sorted by their due date to provide users with a quick overview of upcoming vaccinations and travel recommendations.
 
 User: test1  
 
